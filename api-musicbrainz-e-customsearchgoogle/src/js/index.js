@@ -1,6 +1,6 @@
 import '../styles/main.scss'
 import credentials from './credentials'
-import google_image_search from './resources/google'
+import getImage from './resources/google'
 import musicbrainz_artist_search from './resources/musicbrainz'
 
 // manipulação do dom
@@ -12,5 +12,8 @@ const img = document.getElementById('bg')
 
 form.addEventListener("submit", function(e) {
     e.preventDefault();
-    google_image_search(input.value, img);
+    getImage(input.value).then(function(data) {
+        img.src = data.data.items[0].link;
+        img.style.opacity = 1;
+    })
 })
