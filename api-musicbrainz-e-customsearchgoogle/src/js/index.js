@@ -7,9 +7,10 @@ import musicbrainz_artist_search from './resources/musicbrainz'
 const input = document.querySelector('input');
 const div = document.getElementById('content');
 const form = document.querySelector('form');
+const img = document.getElementById('bg')
 
 
 form.addEventListener("submit", function(e) {
-    e.preventDefault()
-    google_image_search(input.value, div);
+    e.preventDefault();
+    google_image_search(input.value, img);
 })
