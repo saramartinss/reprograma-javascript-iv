@@ -1,13 +1,20 @@
 import axios from 'axios'
 
-function musicbrainz_artist_search() {
-    axios.get('/user?ID=12345')
+function musicbrainz_artist_search (input) {
+    return new Promise( function(resolve, reject) {
+    axios.get(`http://musicbrainz.org/ws/2/artist/?query=${input}&fmt=json`)
         .then(function (response) {
-            console.log(response);
+            const search_result = response.data.artists[0]
+            resolve({
+                name: search_result.name,
+                life_span: `${search_result["life-span"].begin} - ${search_result["life-span"].ended ? search_result["life-span"].end : "present"}`,
+                area: search_result.area ? search_result.area.name : ""
+            });
         })
         .catch(function (error) {
-            console.log(error);
+            reject(error);
         });
+    })
 }
 
 export default musicbrainz_artist_search
